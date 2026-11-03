@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTER-BULLY — Pelo Mundo</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f4f4f4;
+    color: #26384a;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  a { color: #34536d; text-decoration: underline; }
+  .site {
+    width: min(1150px, 100%);
+    min-height: 100vh;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 232px minmax(0, 1fr);
+    background: #fff;
+    box-shadow: 0 0 7px #bbb;
+  }
+  .left {
+    grid-row: 1 / span 2;
+    background: #626262;
+    color: #fff;
+    min-height: 100vh;
+    padding-bottom: 30px;
+  }
+  .brand {
+    background: #626262;
+    padding: 18px 20px 16px;
+    text-align: center;
+  }
+  .brand-mark {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: #ededed;
+    border: 1px solid #ddd;
+    margin-bottom: 9px;
+  }
+  .brand h1 {
+    font-size: 28px;
+    line-height: .98;
+    letter-spacing: .5px;
+    margin: 7px 0 4px;
+    color: white;
+    text-transform: uppercase;
+    text-shadow: 1px 2px #333;
+  }
+  .brand p {
+    color: #e5e5e5;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .left-nav { padding: 12px 17px; }
+  .left-nav a {
+    display: block;
+    color: #e8e8e8;
+    margin: 0 0 9px;
+    font-family: Georgia, serif;
+    font-size: 13px;
+  }
+  .main { min-width: 0; }
+  .page-title {
+    min-height: 154px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    font-size: 16px;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+  }
+  .content-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 205px;
+    gap: 28px;
+    padding: 44px 26px 60px;
+    min-height: 650px;
+    background-color: #fafafa;
+    background-image: radial-gradient(#e8e8e8 .55px, transparent .55px);
+    background-size: 4px 4px;
+  }
+  .intro { margin: 0 0 24px; color: #53677a; }\n  .universe-synopsis p { margin: 0 0 13px; }\n  .universe-synopsis p:last-child { margin-bottom: 24px; }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .city {
+    background: #fff;
+    border: 1px solid #bcbcbc;
+    padding: 4px 4px 0;
+    text-align: center;
+    color: #637487;
+    font-family: Georgia, serif;
+    font-size: 12px;
+    min-width: 0;
+  }
+  .city img {
+    display: block;
+    width: 100%;
+    height: 142px;
+    object-fit: cover;
+    background: #ddd;
+    filter: saturate(.8);
+  }
+  .city figcaption { padding: 5px 2px 6px; overflow-wrap: anywhere; }
+  .side { color: #31475b; font-size: 13px; }
+  .side ul { padding-left: 18px; margin: 0 0 32px; }
+  .side li { margin: 0 0 4px; }
+  .side h3 {
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .side .news-links { list-style: none; padding: 0 0 0 12px; }
+  .side .news-links li { margin-bottom: 6px; }
+  .side-section { margin-bottom: 30px; }
+  .notice {
+    border-top: 1px solid #c9c9c9;
+    margin-top: 25px;
+    padding-top: 13px;
+    color: #667687;
+    font-size: 11px;
+  }
+  @media (max-width: 850px) {
+    .site { grid-template-columns: 190px minmax(0, 1fr); }
+    .content-wrap { grid-template-columns: 1fr; }
+    .side { border-top: 1px solid #ccc; padding-top: 20px; }
+    .side ul { columns: 2; }
+  }
+  @media (max-width: 600px) {
+    .site { display: block; }
+    .left { min-height: 0; }
+    .brand { display: flex; align-items: center; gap: 14px; text-align: left; padding: 12px; }
+    .brand-mark { width: 76px; height: 76px; flex: 0 0 76px; margin: 0; font-size: 35px; }
+    .brand h1 { font-size: 21px; }
+    .left-nav { display: flex; flex-wrap: wrap; gap: 8px 14px; padding: 0 12px 12px; }
+    .left-nav a { margin: 0; font-size: 12px; }
+    .page-title { min-height: 100px; }
+    .content-wrap { padding: 24px 15px 40px; }
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .city img { height: 125px; }
+  }
+
+  .city-card {
+    appearance: none; -webkit-appearance: none; cursor: pointer;
+    display: block; width: 100%; min-width: 0; padding: 4px 4px 0;
+    border: 1px solid #bcbcbc; background: #fff; color: #637487;
+    text-align: center; font: 12px Georgia, serif;
+  }
+  .city-card:hover, .city-card:focus-visible { border-color: #536b80; outline: 2px solid #9aaaba; outline-offset: 2px; }
+  .city-card img { display: block; width: 100%; height: 142px; object-fit: cover; background: #ddd; filter: saturate(.8); }
+  .city-caption { display: block; padding: 5px 2px 6px; overflow-wrap: anywhere; }
+  .case-modal {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,.78); padding: 24px; overflow-y: auto;
+    align-items: center; justify-content: center;
+  }
+  .case-modal.open { display: flex; }
+  .case-panel {
+    position: relative; width: min(900px, 100%); max-height: calc(100vh - 48px);
+    overflow-y: auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr);
+    background: #f8f8f6; color: #26384a; box-shadow: 0 8px 35px rgba(0,0,0,.45);
+    border: 1px solid #aaa;
+  }
+  .case-photo { width: 100%; height: 100%; min-height: 390px; max-height: 72vh; object-fit: contain; background: #202020; }
+  .case-copy { padding: 34px 30px 28px; }
+  .case-copy h2 { margin: 0 34px 7px 0; font-size: 19px; font-weight: normal; text-transform: uppercase; }
+  .case-copy h3 { margin: 0 0 20px; color: #68798a; font-size: 13px; font-weight: normal; }
+  .case-copy p { margin: 0 0 14px; line-height: 1.65; }
+  .case-note { border-top: 1px solid #ccc; padding-top: 12px; color: #596b7b; font-size: 12px; }
+  .case-close {
+    position: absolute; top: 9px; right: 10px; z-index: 2;
+    border: 1px solid #aaa; background: #f7f7f7; color: #222;
+    font-size: 22px; line-height: 1; width: 34px; height: 34px; cursor: pointer;
+  }
+  .case-close:hover { background: #e5e5e5; }
+  .gallery { align-items: start; }
+  @media (max-width: 650px) {
+    .case-modal { padding: 12px; }
+    .case-panel { display: block; max-height: calc(100vh - 24px); }
+    .case-photo { height: auto; min-height: 0; max-height: 48vh; object-fit: contain; }
+    .case-copy { padding: 22px 19px; }
+  }
+
+</style>
+</head>
+<body>
+<div class="site">
+  <aside class="left">
+    <div class="brand">
+      <img class="brand-mark" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcStYEAIv7AucR7gYU_LrRs1QW9ejholtIP878NnxUYBg9EuaKJD" alt="Logo do INTER-BULLY">
+      <div>
+        <h1>INTER-<br>BULLY</h1>
+        <p>Todos viram.<br>Ninguém disse nada.</p>
+      </div>
+    </div>
+    <nav class="left-nav" aria-label="Navegação principal">
+      <a href="#inicio">INÍCIO</a>
+      <a href="#historia">HISTÓRIA</a>
+      <a href="#teorias">TEORIAS</a>
+      <a href="#relatos">RELATOS</a>
+      <a href="#mundo">PELO MUNDO</a>
+      <a href="#arquivos">ARQUIVOS</a>
+      <a href="#guestbook">LIVRO DE VISITAS</a>
+      <a href="#contato">CONTATO</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="mundo">
+    <header class="page-title">PELO MUNDO</header>
+    <div class="content-wrap">
+      <section>
+        <div class="intro universe-synopsis">
+          <p>Em setembro de 2011, em uma escola localizada em uma pequena cidade, um professor encontra um bilhete anônimo dentro de uma das carteiras da sala de aula. Nele, havia apenas uma frase:</p>
+          <p><em>“Todos viram. Ninguém disse nada.”</em></p>
+          <p>Inicialmente, o professor acredita que se trata apenas de uma brincadeira de algum estudante. Entretanto, nas semanas seguintes, bilhetes semelhantes começam a aparecer em diferentes salas. Eles são encontrados dentro de armários, entre páginas de livros didáticos e até mesmo nas paredes dos banheiros da escola.</p>
+          <p>Todas as mensagens parecem abordar o mesmo assunto: o bullying.</p>
+          <p>Em outubro daquele mesmo ano, um orientador escolar recebe um relato incomum de um estudante, que afirma que um de seus colegas vem sendo constantemente humilhado por outros alunos, mas ninguém parece disposto a reconhecer o que está acontecendo. Segundo o relato, os episódios acontecem diante de várias pessoas, inclusive dentro das próprias salas de aula.</p>
+          <p>Nos meses seguintes, relatos semelhantes começam a ser registrados em diferentes instituições de ensino. Embora as circunstâncias sejam variadas, muitos apresentam descrições surpreendentemente parecidas: humilhações públicas, exclusão social, mensagens ofensivas, apelidos depreciativos e o silêncio daqueles que presenciam as situações.</p>
+          <p>Alguns estudantes afirmam ter sido vítimas. Outros admitem que testemunharam essas situações, mas nunca fizeram nada. Há também aqueles que reconhecem a própria participação nos acontecimentos descritos.</p>
+          <p>Não existe uma única escola, um grupo específico ou um determinado perfil de estudante relacionado aos relatos.</p>
+          <p>O único elemento em comum é sempre a mesma ideia:</p>
+          <p><strong>TODOS VIRAM. NINGUÉM DISSE NADA.</strong></p>
+          <p>Atualmente, essa coleção de relatos é conhecida como A SALA SILENCIOSA.</p>
+          <p>Apesar das diferentes histórias, uma pergunta permanece sem resposta:</p>
+          <p>Quantas pessoas já sofreram bullying sem que ninguém jamais soubesse?</p>
+        </div>
+
+        <div class="gallery">
+          <button class="city-card" type="button" data-case="0" aria-label="Abrir registro: São Paulo (BR)">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXD4muRYSwO88KD3EBNKb31OCUkoR9hXPZY3knE0VymPvTNPNVxO5fWLk0BgHj8enIURLikdSCpLNcST1zwVbyLh-1ymLoA1TZdB2HlPROZ4q1EahPf5PAnPqaXq15oo8IUKhVOYFpkTMx4oWeHbP-3nuBLtDXF5NVvDyvUsMTrMREE5oNXl9kOg36_PE/s1600/image.png" alt="Cartaz fictício em São Paulo">
+            <span class="city-caption">São Paulo (BR)</span>
+          </button>
+          <button class="city-card" type="button" data-case="1" aria-label="Abrir registro: Toronto (CA)">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTohE0QUJg4C7wbBXwux4Bi7zMAwqR_w2csacbmGKmDXlY3jIhO-A0c7sTxeba6hxXubrBD0BB6-EMHjWOms_qj1eEPG6Ydix5zIhEiC0b8Dmya_GZFXzq5RvoNbRg5swYzrKKwHzAAJAPv7kfk55QbXmEeeJedq6uqFXmHydSdTEQzR4OwSKxigyhR4o/s1600/image.png" alt="Cartaz fictício em Toronto">
+            <span class="city-caption">Toronto (CA)</span>
+          </button>
+          <button class="city-card" type="button" data-case="2" aria-label="Abrir registro: Berlim (DE)">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjM6KolkBYISOwNgTbVUSmUlaGbt_pcu3eoOdGNLgPaCTJKBzKnXuVI2hwidsr7R_943XfwMTganHetawHxUG_cMgqA2rySyAKrXlAFWeHUVJJ79mkxbogbXc7-H9d9fs_YFRWNLmoXIn0HrdvSogPA1w8c833M5RybwOgm-5vmaHD_wl_7_nkqYQ0Dxf8/s1600/image.png" alt="Cartaz fictício em Berlim">
+            <span class="city-caption">Berlim (DE)</span>
+          </button>
+          <button class="city-card" type="button" data-case="3" aria-label="Abrir registro: Tóquio (JP)">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3lqU1Iyvf650GpPJhN4oljE-88TQ_9c1F1LS9zR2JPEfC56b4QzHHO73eRsf-ailYjmMv43pKAU70y2zeKYwmDHK5hsT6Gf0Q16RhnCf1gQ4V9KrgcjSwrYSjtnlk5H7i_Nk-rUlMT-66RDQwn4tP2ntyhyBkFrhPO7JijXplYoo6dQpRFgu-4ji2io4/s1600/image.png" alt="Cartaz fictício em Tóquio">
+            <span class="city-caption">Tóquio (JP)</span>
+          </button>
+          <button class="city-card" type="button" data-case="4" aria-label="Abrir registro: Londres (UK)">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi43aNSNJz99jDHk5BXj2373XPr4xTqQQ_GcXsqaZAhyphenhyphen2on5jXAFDAgKQjP4MMqNH0OjPbj64Juk_7kwcvLklFJ1Mt0kJQ7R-jAsZSchrc8kjBQt25OlxFly5nhIXwR0t-wfh1mVRvJk8m09mvjNk-GtCdNjCKrI_j1anxm-3y3b3IMk0QRTDw6d7csd2Q/s1600/image.png" alt="Cartaz fictício em Londres">
+            <span class="city-caption">Londres (UK)</span>
+          </button>
+          <button class="city-card" type="button" data-case="5" aria-label="Abrir registro: Buenos Aires (AR)">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi-NNmN1fdbxttPCvmuMJPWVZIiv88fUyRPQ6_89xG5v1r1qpppf8qe0p6eJqeUC4r7g9XjuNrADU1wXoMuReUjugdZZAhQAnC1U18zBTwG9DYcUD5dr2eJc6oT2TlkYTHnXgiy-RXaG4qk5TJAi7IKtZT7_ob_nZDMnFBEG7Mp0m6Hw-lrtSLFRKHy-cw/s1600/image.png" alt="Cartaz fictício em Buenos Aires">
+            <span class="city-caption">Buenos Aires (AR)</span>
+          </button>
+          <button class="city-card" type="button" data-case="6" aria-label="Abrir registro: Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch (UK)">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUSDIyqpB8W-CZCUluoC9g5T54iXLGXf-ijTsDDu2s6N2P5caxStDGkJITSv7MuihLDSnqOjOmhb36P24TzY6PMoReGG2oTkyVTsfIzaAwS9SAviqejqXsZnillL9vtDEujBfCUZ0Fih6ViFVlvpvYSr9Pfc1sZBy1JXI5kLQKXLufYId7GCzrtIO0k5Y/s1600/image.png" alt="Cartaz fictício em Llanfairpwllgwyngyll">
+            <span class="city-caption">Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch (UK)</span>
+          </button>
+        </div>
+
+        <p class="notice">
+          Nota: INTER-BULLY é um projeto ficcional. Os registros, relatos e
+          associações entre cidades e acontecimentos são elementos narrativos e não
+          representam denúncias reais contra escolas ou pessoas.
+        </p>
+      </section>
+
+      <aside class="side">
+        <div class="side-section">
+          <ul>
+            <li><a href="#inicio">INÍCIO</a></li>
+            <li><a href="#historia">HISTÓRIA</a></li>
+            <li><a href="#teorias">TEORIAS</a></li>
+            <li><a href="#relatos">RELATOS</a></li>
+            <li><a href="#mundo">PELO MUNDO</a></li>
+            <li><a href="#arquivos">ARQUIVOS</a></li>
+            <li><a href="#guestbook">LIVRO DE VISITAS</a></li>
+            <li><a href="#contato">CONTATO</a></li>
+          </ul>
+        </div>
+        <div class="side-section">
+          <h3>ATUALIZAÇÕES</h3>
+          <ul class="news-links">
+            <li><a href="#registro">Novos registros adicionados ao arquivo</a></li>
+            <li><a href="#relatos">Como reconhecer o bullying cotidiano</a></li>
+            <li><a href="#teorias">O silêncio de quem presencia</a></li>
+          </ul>
+        </div>
+        <div class="side-section" id="contato">
+          <h3>CONTATO</h3>
+          <p>contato@salasilenciosa.example</p>
+        </div>
+        <div class="side-section">
+          <h3>PROJETO</h3>
+          <p>INTER-BULLY<br>Arquivo ficcional sobre bullying escolar.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div class="case-modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
+  <div class="case-panel">
+    <button class="case-close" type="button" aria-label="Fechar">×</button>
+    <img class="case-photo" id="casePhoto" src="" alt="">
+    <div class="case-copy">
+      <h2 id="caseTitle"></h2>
+      <h3 id="caseSubtitle"></h3>
+      <p id="caseStory"></p>
+      <p class="case-note" id="caseNote"></p>
+    </div>
+  </div>
+</div>
+<script>
+const interBullyCases = [{"city": "São Paulo (BR)", "title": "Exclusão social e agravamento do quadro psicológico", "story": "Um estudante identificado como “M” relata ter passado meses sendo excluído e isolado pelos colegas de classe. Segundo a narrativa, a família procurou a instituição de ensino para comunicar o que estava acontecendo e pedir providências. Mesmo após conversas com a administração, os responsáveis afirmam que a situação continuou afetando o bem-estar do estudante.", "note": "O caso fictício aborda o isolamento prolongado e a importância de levar a sério os pedidos de ajuda.", "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXD4muRYSwO88KD3EBNKb31OCUkoR9hXPZY3knE0VymPvTNPNVxO5fWLk0BgHj8enIURLikdSCpLNcST1zwVbyLh-1ymLoA1TZdB2HlPROZ4q1EahPf5PAnPqaXq15oo8IUKhVOYFpkTMx4oWeHbP-3nuBLtDXF5NVvDyvUsMTrMREE5oNXl9kOg36_PE/s1600/image.png", "alt": "Cartaz fictício em São Paulo"}, {"city": "Toronto (CA)", "title": "Discriminação cultural por parte de uma educadora", "story": "Um episódio na fictícia “#@#%¨%((! High School” ganhou repercussão após relatos de que uma professora de Geografia teria ridicularizado a cultura e as crenças de uma estudante estrangeira, natural da Rússia. Colegas disseram ter presenciado a situação. Familiares, identificados na história pelo sobrenome “Diev”, afirmaram que a jovem já havia enfrentado discriminação entre estudantes e que não esperavam passar por algo semelhante envolvendo uma educadora.", "note": "A família relatou preocupação com o abalo emocional da estudante e com a perda de confiança nas pessoas ao seu redor.", "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTohE0QUJg4C7wbBXwux4Bi7zMAwqR_w2csacbmGKmDXlY3jIhO-A0c7sTxeba6hxXubrBD0BB6-EMHjWOms_qj1eEPG6Ydix5zIhEiC0b8Dmya_GZFXzq5RvoNbRg5swYzrKKwHzAAJAPv7kfk55QbXmEeeJedq6uqFXmHydSdTEQzR4OwSKxigyhR4o/s1600/image.png", "alt": "Cartaz fictício em Toronto"}, {"city": "Berlim (DE)", "title": "Cyberbullying contra estudante com autismo", "story": "Um estudante de 17 anos, identificado nesta narrativa pelo pseudônimo “Yan”, frequenta uma instituição de ensino em Berlim e é descrito como uma pessoa autista. Fotografias dele teriam sido editadas e compartilhadas entre alunos de forma depreciativa. Sete dias depois, quatro estudantes apontados como responsáveis pelas publicações foram identificados no relato. Amigos descrevem Yan como alguém amigável e tranquilo, e acreditam que as publicações podem ter sido motivadas por inveja.", "note": "O episódio fictício destaca como imagens e montagens compartilhadas sem consentimento podem ampliar a humilhação para além da sala de aula.", "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjM6KolkBYISOwNgTbVUSmUlaGbt_pcu3eoOdGNLgPaCTJKBzKnXuVI2hwidsr7R_943XfwMTganHetawHxUG_cMgqA2rySyAKrXlAFWeHUVJJ79mkxbogbXc7-H9d9fs_YFRWNLmoXIn0HrdvSogPA1w8c833M5RybwOgm-5vmaHD_wl_7_nkqYQ0Dxf8/s1600/image.png", "alt": "Cartaz fictício em Berlim"}, {"city": "Tóquio (JP)", "title": "Caso sob anonimato", "story": "As informações referentes a esta ocorrência não serão divulgadas. A identidade da pessoa envolvida, os detalhes do episódio e quaisquer dados que possam permitir seu reconhecimento permanecem sob sigilo.", "note": "A decisão de manter o registro anônimo busca respeitar a privacidade da vítima e de seus familiares.", "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3lqU1Iyvf650GpPJhN4oljE-88TQ_9c1F1LS9zR2JPEfC56b4QzHHO73eRsf-ailYjmMv43pKAU70y2zeKYwmDHK5hsT6Gf0Q16RhnCf1gQ4V9KrgcjSwrYSjtnlk5H7i_Nk-rUlMT-66RDQwn4tP2ntyhyBkFrhPO7JijXplYoo6dQpRFgu-4ji2io4/s1600/image.png", "alt": "Cartaz fictício em Tóquio"}, {"city": "Londres (UK)", "title": "Racismo e exclusão no ambiente escolar", "story": "Em uma instituição fictícia na zona leste de Londres, um estudante identificado pelo pseudônimo “Gustavo Pearson” teria enfrentado episódios recorrentes de exclusão social e discriminação racial dentro da sala de aula. Segundo a narrativa, ele procurou ajuda e entrou em contato com um amigo próximo da família que trabalhava como policial. Após a comunicação, adultos responsáveis e autoridades foram acionados para lidar com a situação.", "note": "Mesmo após a intervenção, Gustavo demonstrou preocupação com a possibilidade de continuar enfrentando discriminação por causa da cor de sua pele.", "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi43aNSNJz99jDHk5BXj2373XPr4xTqQQ_GcXsqaZAhyphenhyphen2on5jXAFDAgKQjP4MMqNH0OjPbj64Juk_7kwcvLklFJ1Mt0kJQ7R-jAsZSchrc8kjBQt25OlxFly5nhIXwR0t-wfh1mVRvJk8m09mvjNk-GtCdNjCKrI_j1anxm-3y3b3IMk0QRTDw6d7csd2Q/s1600/image.png", "alt": "Cartaz fictício em Londres"}, {"city": "Buenos Aires (AR)", "title": "Divulgação não autorizada de imagens privadas e agressões", "story": "No início de julho, estudantes teriam acessado sem autorização o celular de uma adolescente de 17 anos e compartilhado imagens privadas. Depois disso, a jovem passou a enfrentar assédio e humilhações. Durante uma viagem escolar fictícia às Termas de Fiambalá, o relato também descreve agressões físicas e comentários depreciativos sobre sua aparência. Um estudante de 16 anos, chamado “Tongo” na narrativa, registrou alguns episódios e apresentou o material à direção, que acionou os responsáveis competentes.", "note": "O projeto não exibe nem reproduz as imagens. O foco do registro é a violação de privacidade, o assédio e a necessidade de proteger a vítima.", "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi-NNmN1fdbxttPCvmuMJPWVZIiv88fUyRPQ6_89xG5v1r1qpppf8qe0p6eJqeUC4r7g9XjuNrADU1wXoMuReUjugdZZAhQAnC1U18zBTwG9DYcUD5dr2eJc6oT2TlkYTHnXgiy-RXaG4qk5TJAi7IKtZT7_ob_nZDMnFBEG7Mp0m6Hw-lrtSLFRKHy-cw/s1600/image.png", "alt": "Cartaz fictício em Buenos Aires"}, {"city": "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch (UK)", "title": "Caso sob anonimato", "story": "As informações referentes a esta ocorrência permanecerão sob sigilo. Nenhum detalhe sobre a vítima, os envolvidos ou o local específico será divulgado.", "note": "O arquivo mantém apenas a referência geral ao caso, em respeito à privacidade da pessoa envolvida e de seus familiares.", "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUSDIyqpB8W-CZCUluoC9g5T54iXLGXf-ijTsDDu2s6N2P5caxStDGkJITSv7MuihLDSnqOjOmhb36P24TzY6PMoReGG2oTkyVTsfIzaAwS9SAviqejqXsZnillL9vtDEujBfCUZ0Fih6ViFVlvpvYSr9Pfc1sZBy1JXI5kLQKXLufYId7GCzrtIO0k5Y/s1600/image.png", "alt": "Cartaz fictício em Llanfairpwllgwyngyll"}];
+
+(() => {
+  const modal = document.getElementById('caseModal');
+  const photo = document.getElementById('casePhoto');
+  const title = document.getElementById('caseTitle');
+  const subtitle = document.getElementById('caseSubtitle');
+  const story = document.getElementById('caseStory');
+  const note = document.getElementById('caseNote');
+  const closeButton = modal.querySelector('.case-close');
+  let lastTrigger = null;
+
+  function closeCase() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastTrigger) lastTrigger.focus();
+  }
+
+  document.querySelectorAll('.city-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const item = interBullyCases[Number(card.dataset.case)];
+      if (!item) return;
+      lastTrigger = card;
+      photo.src = item.image;
+      photo.alt = item.alt;
+      title.textContent = item.city;
+      subtitle.textContent = item.title;
+      story.textContent = item.story;
+      note.textContent = item.note;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeButton.focus();
+    });
+  });
+
+  closeButton.addEventListener('click', closeCase);
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeCase();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal.classList.contains('open')) closeCase();
+  });
+  modal.setAttribute('aria-hidden', 'true');
+})();
+</script>
+
+</body>
+</html>
